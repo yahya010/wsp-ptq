@@ -12,7 +12,7 @@ revert.
 As in [autoresearch](https://github.com/karpathy/autoresearch), the part you edit is the prompt: **`program.md`**.
 Point your agent at it.
 
-Blog post: [Repairing a Quantized LLM using Weight Space Programming](https://abdelfattah-lab.github.io/blogs/wsp-quant-repair/)
+Blog post: [Repairing a Quantized LLM using Weight Space Programming](https://sharar-project.github.io/blog/repairing-quantized-llm/)
 
 ## What one run did
 

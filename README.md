@@ -84,3 +84,7 @@ writes `runs/<run>/REPORT.md`.
 
 The validation sets differ slightly from the ones behind the table above (the code set here is built from Python's
 standard library), so validation numbers will not match the blog post exactly. The test sets are the same.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

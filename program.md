@@ -1,4 +1,4 @@
-# wsp-ptq
+# wsq
 
 You are repairing a quantized language model by reading and editing its weights directly ("weight-space programming").
 You work alone and in a loop: measure, find what is broken, understand why, edit, validate, keep or revert, repeat.

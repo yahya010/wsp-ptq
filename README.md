@@ -1,4 +1,4 @@
-# wsp-ptq
+# wsq
 
 Repair a quantized LLM by letting an LLM agent read and edit its weights directly: weight-space programming
 for post-training quantization.

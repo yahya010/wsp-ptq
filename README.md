@@ -16,16 +16,21 @@ Blog post: [Repairing a Quantized LLM using Weight Space Programming](https://sh
 
 ## What one run did
 
-On NVIDIA Nemotron-3.5-Lightning-30B-A3B, starting from two 3-bit GPTQ checkpoints, the agent edited three
-matrices in each (0.0008% to 0.001% of the weights). Test sets, run once:
+On NVIDIA Nemotron-3.5-Lightning-30B-A3B, starting from a poorly calibrated 3-bit GPTQ checkpoint, the agent edited
+0.0008% of the weights. We compare it with re-running GPTQ on the same validation data as a new calibration set. Test
+sets, run once:
 
-| Checkpoint | Weights edited | GSM8K | MATH-500 | LiveCodeBench v6 | GPQA Diamond | MMLU | WikiText-2 PPL |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| NVFP4 release (reference) | – | 95.0 | 88.8 | 55.2 | 71.1 | 77.1 | 8.08 |
-| Poorly calibrated 3-bit | – | 71.4 | 60.8 | 30.8 | 47.1 | 66.8 | 11.76 |
-| + agent edits | 0.0008% | 91.6 | 82.2 | 48.6 | 62.6 | 74.3 | 9.39 |
-| Well-calibrated 3-bit | – | 91.6 | 80.8 | 39.2 | 59.6 | 67.2 | 11.15 |
-| + agent edits | 0.001% | 92.1 | 84.6 | 41.2 | 63.0 | 74.1 | 8.87 |
+| Checkpoint | MATH-500 ↑ | LiveCodeBench v6 ↑ | GPQA Diamond ↑ | MMLU ↑ | WikiText-2 PPL ↓ |
+| --- | --- | --- | --- | --- | --- |
+| NVFP4 release (reference) | 88.0 | 55.6 | 72.1 | 77.0 | 8.08 |
+| Poorly calibrated (GPTQ) | 61.6 | 30.0 | 46.6 | 66.6 | 11.76 |
+| + re-calibration (GPTQ) | **84.4** | 35.6 | 62.6 | 68.5 | 11.18 |
+| + agent edits (WSP) | 83.0 | **47.8** | **64.3** | **74.3** | **9.38** |
+
+Bold marks the best 3-bit score in each column. MATH-500 uses greedy decoding with thinking off. LiveCodeBench v6
+(131 problems from February 2025 on) and GPQA Diamond use thinking on and a 32K-token limit, averaged over 3 and 4
+samples. MMLU is the 0-shot test split; WikiText-2 is perplexity on the test split. The validation data used for the
+repair and the re-calibration is published as [wsp-agent-data](https://huggingface.co/datasets/yemara/wsp-agent-data).
 
 What it found and how is in the blog post. `program.md` does not contain any of it: an agent starting from this repo
 has to find the problems itself.
